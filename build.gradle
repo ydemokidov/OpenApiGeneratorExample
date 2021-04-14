@@ -15,6 +15,8 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.12.3'
     // https://mvnrepository.com/artifact/io.swagger/swagger-annotations
     implementation group: 'io.swagger', name: 'swagger-annotations', version: '1.6.2'
+
+    //чтобы был Nullable
     implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
@@ -31,20 +33,24 @@ sourceSets{
 }
 
 openApiGenerate {
+    //указываем, что генерируем
     globalProperties = [
             apis: "false",
             modelDocs: "false",
-            models: "User,Pet"
+            models: "Pet,Error"
     ]
     generatorName = "java"
     generateModelTests = false
     inputSpec = "$rootDir/src/main/resources/schema/my_schema.json".toString()
     outputDir = modelJavDir
     modelPackage = "org.openapi.example.model"
+    //ссылка на документацию
+    //https://openapi-generator.tech/docs/generators/java/
     configOptions = [
             dateLibrary: "java8",
             serializationLibrary: "jackson",
-            library: "jersey1"
+            library: "jersey1",
+            sourceFolder: ""
     ]
 }
 
